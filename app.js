@@ -1,28 +1,13 @@
 const express = require('express')
 const app = express()
-const bodyparser = require('body-parser')
+const bodyParser = require('body-parser')
 const port = (process.env.PORT || 3000)
 
 app.set('view engine', 'ejs');
+app.use(bodyParser.urlencoded({ extended: true }));
 
-
-
+4
 let myVariableServer = 'soft coded server data';
-app.use(bodyparser.urlencoded)
-
-app.post('/postClientData', function (req, res) {
-console.log("body: ", req.body)
-console.log("params" , req.params['userName']);
-
-myVariableServer = 'now we\'ve posted';
-
-  res.render('index', 
-  {
-    'myVariableClient' : myVariableServer 
-  }
-  );
-})
-
 
 app.get('/humphries', function (req, res) {
   res.render('index', 
@@ -31,6 +16,22 @@ app.get('/humphries', function (req, res) {
   }
   );
 })
+
+app.post('/postClientData', function (req, res) {
+  
+   console.log("body: ", req.body)
+   console.log("user Name: ", req.body.userName)
+  //  console.log("params: ", req.params['userName']);
+  
+  // myVariableServer = req.body.userName;
+
+  res.render('index', 
+  {
+    'myVariableClient' : req.body.userName 
+  }
+  );
+})
+
 
 app.get('/', function (req, res) {
   res.send('<h1>Hello World From Express & a PaaS/Render</h1>')
