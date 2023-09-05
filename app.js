@@ -24,6 +24,7 @@ app.post('/postClientData', function (req, res) {
   //  console.log("params: ", req.params['userName']);
   
   // myVariableServer = req.body.userName;
+  // made changes 
 
   res.render('index', 
   {
