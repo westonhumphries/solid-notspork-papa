@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
+const { ObjectId } = require('mongodb')
 const port = (process.env.PORT || 3000)
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = "mongodb+srv://whumphries:SRpNgdjqFdR97S5G@cluster0.vv1cii2.mongodb.net/?retryWrites=true&w=majority";
@@ -30,7 +31,26 @@ async function run() {
     await client.close();
   }
 }
-run().catch(console.dir);
+// run().catch(console.dir);
+
+async function cxnDB(){
+
+  try{
+    client.connect; 
+    const collection = client.db("humphries-cool-papa-database").collection("dev-profiles");
+    // const collection = client.db("papa").collection("dev-profiles");
+    const result = await collection.find().toArray();
+    //const result = await collection.findOne(); 
+    console.log("cxnDB result: ", result);
+    return result; 
+  }
+  catch(e){
+      console.log(e)
+  }
+  finally{
+    client.close; 
+  }
+}
 
 
 
@@ -60,6 +80,16 @@ app.post('/postClientData', function (req, res) {
   );
 })
 
+
+app.get('/', async (req, res) => {
+
+  let result = await cxnDB().catch(console.error); 
+
+  // console.log("get/: ", result);
+  res.send("here for a second: " + result[0].name)
+  // res.render('index', {  peopleData : result })
+  
+})
 
 app.get('/', function (req, res) {
   res.send('<h1>Hello World From Express & a PaaS/Render</h1>')

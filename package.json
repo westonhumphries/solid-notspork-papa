@@ -15,6 +15,10 @@
     "dev": "nodemon app.js",
     "start": "node app.js"
   },
+  "engines": {
+    "node": ">=16.20.1"
+  },
+
   "keywords": [],
   "author": "",
   "license": "ISC"
