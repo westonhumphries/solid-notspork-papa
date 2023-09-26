@@ -1,10 +1,11 @@
+require('dotenv').config()
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const { ObjectId } = require('mongodb')
 const port = (process.env.PORT || 3000)
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://whumphries:SRpNgdjqFdR97S5G@cluster0.vv1cii2.mongodb.net/?retryWrites=true&w=majority";
+const uri = process.env.MONGO_URI
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
